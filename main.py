@@ -24,17 +24,17 @@ async def send_notifications_to_users():
             users = await db.get_staff_users()
             chats = [(user.chat_id, user.id) for user in users]
             for notification in notifications:
-                for user_id, chat_id in chats:
+                for chat_id, user_id in chats:
                     response = render_patient_detail_view(notification)
                     try:
-                        await bot.send_message(text='Поступил новый пациент!', chat_id=chat_id)
+                        await bot.send_message(text=NEW_PATIENT_MSG, chat_id=chat_id)
                         await bot.send_message(text=response, chat_id=chat_id)
                     except BotBlocked:
                         await db.delete_user(user_id)
-            await db.add_task(True, 'success')
     except Exception as e:
         async with DataBase() as db:
             db.add_task(False, f'{e!r}')
+
 
 dp.middleware.setup(AuthUserMiddleware())
 
@@ -52,7 +52,8 @@ async def current_page_view(request: types.Message, user: Users):
     paginator = Paginator(patients_view, PAGE_LIMIT)
     patients_view = paginator.get_items(user.page_id)
     keyboard = render_patient_as_inline_buttons(patients_view)
-    await request.answer(f'Страница {user.page_id + 1}/{paginator.pages_count}', reply_markup=keyboard)
+    await request.answer(PAGES_MSG.format(page=user.page_id + 1, page_count=paginator.pages_count),
+                         reply_markup=keyboard)
 
 
 @dp.message_handler(Text(NEXT_PAGE_MSG))
@@ -67,7 +68,7 @@ async def next_page_view(request: types.Message, user: Users):
         await db.update_page_id_user(page_id, user.id)
     patients_view = paginator.get_items(page_id)
     keyboard = render_patient_as_inline_buttons(patients_view)
-    await request.answer(f'Страница {page_id + 1}/{paginator.pages_count}', reply_markup=keyboard)
+    await request.answer(PAGES_MSG.format(page=page_id + 1, page_count=paginator.pages_count), reply_markup=keyboard)
 
 
 @dp.message_handler(Text(PREV_PAGE_MSG))
@@ -82,7 +83,7 @@ async def prev_page_view(request: types.Message, user: Users):
         await db.update_page_id_user(page_id, user.id)
     patients_view = paginator.get_items(page_id)
     keyboard = render_patient_as_inline_buttons(patients_view)
-    await request.answer(f'Страница {page_id + 1}/{paginator.pages_count}', reply_markup=keyboard)
+    await request.answer(PAGES_MSG.format(page=page_id + 1, page_count=paginator.pages_count), reply_markup=keyboard)
 
 
 @dp.callback_query_handler(Text(startswith='patient_info_'))
@@ -109,4 +110,3 @@ async def main():
 
 if __name__ == '__main__':
     asyncio.run(main())
-

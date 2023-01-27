@@ -21,7 +21,7 @@ def render_patient_as_inline_buttons(patients: List[PersonDetailView]) -> Inline
 
 def render_patient_detail_view(patient: PersonDetailView) -> str:
     response = ''
-    response += f'{patient.fio} \n \n'
+    response += f"""{patient.fio} {patient.birthday.strftime('%d/%m/%Y')}\n \n"""
     sorted_set = sorted(patient.events, key=lambda x: x.date, reverse=True)
     for item, event in enumerate(sorted_set):
         response += f'{event.date} {event.header} {event.status} \n'
