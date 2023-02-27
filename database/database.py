@@ -134,7 +134,7 @@ class SqliteDB:
         patient_db = await self.get_patient(patient)
         for event in events:
             self.session.add(
-                PatientEvents(patient_id=patient_db.id, event_id=event.event_id, header=event.header,
+                PatientEvents(person_id=patient_db.id, event_id=event.event_id, header=event.header,
                               status=event.status, body=event.body, date=event.date))
 
         await self.session.commit()

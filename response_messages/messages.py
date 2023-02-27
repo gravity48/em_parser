@@ -11,6 +11,6 @@ GREETING_MESSAGE = 'Добро пожаловать!'
 
 NEW_PATIENT_MSG = 'Поступил новый пациент!'
 
-PAGES_MSG = "Страница {page}/{page_count}"
+PAGES_MSG = "Страница {page}/{page_count}  \t Всего: {patients_cnt}"
 
 

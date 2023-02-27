@@ -49,11 +49,13 @@ async def current_page_view(request: types.Message, user: Users):
     async with DataBase() as db:
         patients = await db.get_patients()
     patients_view = [patient.to_tuple() for patient in patients]
+    patients_cnt = len(patients_view)
     paginator = Paginator(patients_view, PAGE_LIMIT)
     patients_view = paginator.get_items(user.page_id)
     keyboard = render_patient_as_inline_buttons(patients_view)
-    await request.answer(PAGES_MSG.format(page=user.page_id + 1, page_count=paginator.pages_count),
-                         reply_markup=keyboard)
+    await request.answer(
+        PAGES_MSG.format(page=user.page_id + 1, page_count=paginator.pages_count, patients_cnt=patients_cnt),
+        reply_markup=keyboard)
 
 
 @dp.message_handler(Text(NEXT_PAGE_MSG))
@@ -61,6 +63,7 @@ async def next_page_view(request: types.Message, user: Users):
     async with DataBase() as db:
         patients = await db.get_patients()
         patients_view = [patient.to_tuple() for patient in patients]
+        patients_cnt = len(patients_view)
         paginator = Paginator(patients_view, PAGE_LIMIT)
         page_id = user.page_id + 1
         if not paginator.page_exist(page_id):
@@ -68,7 +71,9 @@ async def next_page_view(request: types.Message, user: Users):
         await db.update_page_id_user(page_id, user.id)
     patients_view = paginator.get_items(page_id)
     keyboard = render_patient_as_inline_buttons(patients_view)
-    await request.answer(PAGES_MSG.format(page=page_id + 1, page_count=paginator.pages_count), reply_markup=keyboard)
+    await request.answer(
+        PAGES_MSG.format(page=page_id + 1, page_count=paginator.pages_count, patients_cnt=patients_cnt),
+        reply_markup=keyboard)
 
 
 @dp.message_handler(Text(PREV_PAGE_MSG))
@@ -76,6 +81,7 @@ async def prev_page_view(request: types.Message, user: Users):
     async with DataBase() as db:
         patients = await db.get_patients()
         patients_view = [patient.to_tuple() for patient in patients]
+        patients_cnt = len(patients_view)
         paginator = Paginator(patients_view, PAGE_LIMIT)
         page_id = user.page_id - 1
         if not paginator.page_exist(page_id):
@@ -83,7 +89,9 @@ async def prev_page_view(request: types.Message, user: Users):
         await db.update_page_id_user(page_id, user.id)
     patients_view = paginator.get_items(page_id)
     keyboard = render_patient_as_inline_buttons(patients_view)
-    await request.answer(PAGES_MSG.format(page=page_id + 1, page_count=paginator.pages_count), reply_markup=keyboard)
+    await request.answer(
+        PAGES_MSG.format(page=page_id + 1, page_count=paginator.pages_count, patients_cnt=patients_cnt),
+        reply_markup=keyboard)
 
 
 @dp.callback_query_handler(Text(startswith='patient_info_'))
@@ -98,6 +106,7 @@ async def patient_detail_view(callback: types.CallbackQuery):
 
 
 async def main():
+    await send_notifications_to_users()
     scheduler.add_job(send_notifications_to_users, IntervalTrigger(minutes=TASK_INTERVAL))
     try:
         scheduler.start()
