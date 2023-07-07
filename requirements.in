@@ -1,0 +1,12 @@
+
+aiohttp
+SQLAlchemy
+aiogram
+APScheduler
+python-dotenv
+aiosqlite
+
+black
+add-trailing-comma
+isort
+flake8

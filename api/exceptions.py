@@ -1,4 +1,0 @@
-
-class AuthErrorException(Exception):
-    pass
-
