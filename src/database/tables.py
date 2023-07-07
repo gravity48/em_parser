@@ -12,7 +12,7 @@ from sqlalchemy import (
 )
 from sqlalchemy.orm import declarative_base, relationship
 
-from src.parsers import EventDetailView, PersonDetailView
+from parsers import EventDetailView, PersonDetailView
 
 GREETING_MESSAGE_ID = 1
 

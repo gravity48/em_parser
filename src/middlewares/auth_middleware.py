@@ -2,9 +2,9 @@ from aiogram import types
 from aiogram.dispatcher.handler import CancelHandler
 from aiogram.dispatcher.middlewares import BaseMiddleware
 
-from src.database import DataBase, Users
-from src.keyboards import start_btn
-from src.response_messages import LOGOUT_ERROR_MSG
+from database import DataBase, Users
+from keyboards import start_btn
+from response_messages import LOGOUT_ERROR_MSG
 
 
 class AuthUserMiddleware(BaseMiddleware):

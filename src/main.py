@@ -5,7 +5,12 @@ from aiogram.dispatcher.filters.builtin import CommandStart, Text
 from aiogram.utils.exceptions import BotBlocked
 from apscheduler.triggers.interval import IntervalTrigger
 
+from database import DataBase, Users
 from keyboards import menu
+from middlewares import AuthUserMiddleware
+from pagination.paginator import Paginator
+from parsers import PersonDetailView
+from periodic_task import em_parser
 from renders import render_patient_as_inline_buttons, render_patient_detail_view
 from response_messages import (
     CURRENT_PAGE_MSG,
@@ -15,12 +20,7 @@ from response_messages import (
     PAGES_MSG,
     PREV_PAGE_MSG,
 )
-from src.database import DataBase, Users
-from src.middlewares import AuthUserMiddleware
-from src.pagination.paginator import Paginator
-from src.parsers import PersonDetailView
-from src.periodic_task import em_parser
-from src.settings import PAGE_LIMIT, TASK_INTERVAL, bot, dp, scheduler
+from settings import PAGE_LIMIT, TASK_INTERVAL, bot, dp, scheduler
 
 
 async def send_notifications_to_users():

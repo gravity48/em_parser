@@ -1,0 +1,10 @@
+version: "3.9"
+
+services:
+  em_parser:
+    container_name: em_parser_cont
+    build: .
+    env_file:
+      - .env
+    volumes:
+      - ./src:/app

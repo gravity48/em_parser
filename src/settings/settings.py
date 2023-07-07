@@ -4,7 +4,7 @@ from aiogram import Bot, Dispatcher
 from apscheduler.schedulers.asyncio import AsyncIOScheduler
 from dotenv import load_dotenv
 
-from src.api import ApiWrapper, AuthData, AuthStatusResponse
+from api import ApiWrapper, AuthData, AuthStatusResponse
 
 load_dotenv(dotenv_path=os.path.join(os.path.dirname(__file__), '../../.env'))
 

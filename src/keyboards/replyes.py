@@ -1,6 +1,6 @@
 from aiogram.types import KeyboardButton, ReplyKeyboardMarkup
 
-from src.response_messages import CURRENT_PAGE_MSG, NEXT_PAGE_MSG, PREV_PAGE_MSG
+from response_messages import CURRENT_PAGE_MSG, NEXT_PAGE_MSG, PREV_PAGE_MSG
 
 menu = ReplyKeyboardMarkup(
     keyboard=[

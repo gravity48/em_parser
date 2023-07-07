@@ -8,7 +8,7 @@ from sqlalchemy.future import select
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.sql.expression import Select
 
-from src.parsers import EventDetailView, PersonDetailView
+from parsers import EventDetailView, PersonDetailView
 
 from .tables import PatientEvents, Patients, Settings, Tasks, Users
 

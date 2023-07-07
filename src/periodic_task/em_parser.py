@@ -1,9 +1,9 @@
 import asyncio
 from typing import List, Set
 
-from src.database import DataBase, PatientEvents
-from src.parsers import EventDetailView, Parser, PersonDetailView
-from src.settings import ApiWrapper
+from database import DataBase, PatientEvents
+from parsers import EventDetailView, Parser, PersonDetailView
+from settings import ApiWrapper
 
 
 async def get_person_detail_from_api(patients_id_list: List[int]) -> Set[PersonDetailView]:

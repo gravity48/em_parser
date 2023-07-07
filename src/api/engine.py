@@ -2,7 +2,7 @@ from datetime import datetime
 
 import aiohttp
 
-from src.database import DataBase
+from database import DataBase
 
 from .abc import AuthData, AuthStatusResponse, ResponseWrapper
 from .decorators import auth_decorator

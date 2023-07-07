@@ -2,7 +2,7 @@ from typing import List
 
 from aiogram.types import InlineKeyboardButton, InlineKeyboardMarkup
 
-from src.parsers import PersonDetailView
+from parsers import PersonDetailView
 
 
 def render_patient_as_list(patients: List[PersonDetailView]) -> str:

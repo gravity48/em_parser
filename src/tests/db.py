@@ -1,6 +1,6 @@
 from unittest import IsolatedAsyncioTestCase
 
-from src.database.database import DataBase
+from database.database import DataBase
 
 
 class DatabaseTest(IsolatedAsyncioTestCase):
