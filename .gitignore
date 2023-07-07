@@ -2,8 +2,6 @@
 logfiles/
 download/
 
-!requirements.txt
-
 # Django #
 *.log
 *.pot
@@ -23,6 +21,7 @@ media
 *.pyc 
 *.zip
 *.txt
+!requirements.txt
 *$py.class 
 
 # Distribution / packaging 
