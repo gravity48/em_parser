@@ -2,6 +2,8 @@
 logfiles/
 download/
 
+!requirements.txt
+
 # Django #
 *.log
 *.pot
