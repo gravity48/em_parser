@@ -4,6 +4,7 @@ services:
   em_parser:
     container_name: em_parser_cont
     build: .
+    restart: always
     env_file:
       - .env
     volumes:
